@@ -9,26 +9,49 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
+    
+    <!-- 引入脚本 -->
+    <script src="i18n.js"></script>
 </head>
 <body>
-    <header>
-        <nav class="navbar">
+    <!-- 加载动画 -->
+    <div class="loader" id="loader">
+        <div class="loader-content">
+            <div class="loader-spinner"></div>
+            <div class="loader-text" data-i18n="loading_text">加载中...</div>
+        </div>
+    </div>
+    
+    <!-- 粒子背景 -->
+    <div class="particles" id="particles"></div>
+    
+    <!-- 导航栏 -->
+    <nav class="navbar">
             <div class="nav-container">
                 <div class="nav-logo">
-                    <h1>我的作品集</h1>
+                    <h1 data-i18n="nav_portfolio">我的作品集</h1>
                 </div>
                 <ul class="nav-menu">
                     <li class="nav-item">
-                        <a href="#home" class="nav-link">首页</a>
+                        <a href="#home" class="nav-link" data-i18n="nav_home">首页</a>
                     </li>
                     <li class="nav-item">
-                        <a href="#about" class="nav-link">关于我</a>
+                        <a href="#about" class="nav-link" data-i18n="nav_about">关于我</a>
                     </li>
                     <li class="nav-item">
-                        <a href="#projects" class="nav-link">项目</a>
+                        <a href="#projects" class="nav-link" data-i18n="nav_projects">项目</a>
                     </li>
                     <li class="nav-item">
-                        <a href="#contact" class="nav-link">联系</a>
+                        <a href="#contact" class="nav-link" data-i18n="nav_contact">联系</a>
+                    </li>
+                    <li class="nav-item lang-switcher">
+                        <button class="lang-btn active" data-lang="zh" onclick="switchLanguage('zh')">中文</button>
+                        <button class="lang-btn" data-lang="en" onclick="switchLanguage('en')">English</button>
+                    </li>
+                    <li class="nav-item theme-switcher">
+                        <button class="theme-btn" id="theme-toggle" title="切换主题">
+                            <span class="theme-icon">🌙</span>
+                        </button>
                     </li>
                 </ul>
                 <div class="hamburger">
@@ -43,49 +66,37 @@
     <main>
         <section id="home" class="hero">
             <div class="hero-content">
-                <h1 class="hero-title">欢迎来到我的作品集</h1>
-                <p class="hero-subtitle">我是一名开发者，热爱创造美好的数字体验</p>
-                <button class="cta-button" onclick="scrollToSection('projects')">查看我的作品</button>
+                <h1 class="hero-title" data-i18n="hero_title">欢迎来到我的作品集</h1>
+                <p class="hero-subtitle" data-i18n="hero_subtitle">我是一名开发者，热爱创造美好的数字体验</p>
+                <button class="cta-button" onclick="scrollToSection('projects')" data-i18n="hero_cta">查看我的作品</button>
+            </div>
+            <div class="scroll-indicator">
+                <span>↓</span>
             </div>
         </section>
 
         <section id="about" class="about">
             <div class="container">
-                <h2>关于我</h2>
+                <h2 class="scroll-animate" data-i18n="about_title">关于我</h2>
                 <div class="about-content">
-                    <div class="about-text">
-                        <h3>Python Developer</h3>
-                        <p>我是一名专注于消息中间件、实时数据处理和高可用架构设计的Python开发者。拥有丰富的后端开发经验，擅长构建高性能、可扩展的系统架构。</p>
-                        <p>除了技术之外，我喜欢Rust编程语言，热爱动漫文化，特别是《幸运星》、《孤独摇滚》和《摇曳露营》等作品。这些爱好让我保持创造力和对美好事物的追求。</p>
+                    <div class="about-text scroll-animate-left">
+                        <h3 data-i18n="about_role">全栈开发者</h3>
+                        <p data-i18n="about_description">我是一名充满激情的全栈开发者，拥有5年的Web开发经验。我专注于创建用户友好且高效的数字解决方案。</p>
                         
                         <div class="timeline">
                             <h4>专业经历</h4>
                             <div class="timeline-item">
-                                <div class="timeline-year">2010-2014</div>
+                                <div class="timeline-year">2019-2023</div>
                                 <div class="timeline-content">
-                                    <h5>清华大学</h5>
-                                    <p>计算机科学与技术学士</p>
+                                    <h5 data-i18n="about_education1">计算机科学学士学位</h5>
+                                    <p data-i18n="about_education2">清华大学</p>
                                 </div>
                             </div>
                             <div class="timeline-item">
-                                <div class="timeline-year">2014-2016</div>
+                                <div class="timeline-year">2020-2024</div>
                                 <div class="timeline-content">
-                                    <h5>斯坦福大学</h5>
-                                    <p>计算机科学硕士</p>
-                                </div>
-                            </div>
-                            <div class="timeline-item">
-                                <div class="timeline-year">2017-2020</div>
-                                <div class="timeline-content">
-                                    <h5>Google</h5>
-                                    <p>软件工程师</p>
-                                </div>
-                            </div>
-                            <div class="timeline-item">
-                                <div class="timeline-year">2021-2023</div>
-                                <div class="timeline-content">
-                                    <h5>OpenAI</h5>
-                                    <p>软件工程师</p>
+                                    <h5 data-i18n="about_experience1">5年Web开发经验</h5>
+                                    <p data-i18n="about_experience2">多个成功项目</p>
                                 </div>
                             </div>
                         </div>
@@ -93,9 +104,10 @@
                         <div class="achievements">
                             <h4>个人成就</h4>
                             <div class="achievement-tags">
-                                <span class="achievement-tag">🏆 清华大学优秀毕业生</span>
-                                <span class="achievement-tag">🎯 微软MVP</span>
-                                <span class="achievement-tag">🚀 华为开发者认证</span>
+                                <span class="achievement-tag" data-i18n="about_achievement1">React & Node.js专家</span>
+                                <span class="achievement-tag" data-i18n="about_achievement2">UI/UX设计经验</span>
+                                <span class="achievement-tag" data-i18n="about_achievement3">敏捷开发方法</span>
+                                <span class="achievement-tag" data-i18n="about_achievement4">团队协作</span>
                             </div>
                         </div>
 
@@ -104,23 +116,26 @@
                             <div class="skill-categories">
                                 <div class="skill-category">
                                     <h5>核心技能</h5>
+                                    <span class="skill-tag expert">React</span>
+                                    <span class="skill-tag expert">Node.js</span>
                                     <span class="skill-tag expert">Python</span>
-                                    <span class="skill-tag expert">MongoDB</span>
                                 </div>
                                 <div class="skill-category">
                                     <h5>熟练技能</h5>
-                                    <span class="skill-tag proficient">Next.js</span>
-                                    <span class="skill-tag proficient">ElasticSearch</span>
+                                    <span class="skill-tag proficient">MongoDB</span>
+                                    <span class="skill-tag proficient">Express.js</span>
+                                    <span class="skill-tag proficient">Vue.js</span>
                                 </div>
                                 <div class="skill-category">
                                     <h5>学习技能</h5>
-                                    <span class="skill-tag learning">Rust</span>
+                                    <span class="skill-tag learning">TypeScript</span>
+                                    <span class="skill-tag learning">Docker</span>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="about-image">
-                        <img src="F:\\Flutter\\test03_2\\lib\\img\\1.png" alt="个人照片" class="profile-img">
+                    <div class="about-image scroll-animate-right">
+                        <img src="images/1.png" alt="个人照片">
                     </div>
                 </div>
             </div>
@@ -128,44 +143,44 @@
 
         <section id="projects" class="projects">
             <div class="container">
-                <h2>我的项目</h2>
+                <h2 data-i18n="projects_title">我的项目</h2>
                 <div class="projects-grid">
                     <div class="project-card">
-                        <div class="project-image">
+                        <div class="project-image scroll-animate">
                         <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=600&fit=crop" alt="项目1">
                     </div>
-                        <div class="project-info">
-                            <h3>项目标题 1</h3>
-                            <p>这是一个很棒的项目描述，展示了项目的核心功能和特点。</p>
+                        <div class="project-info scroll-animate">
+                            <h3 data-i18n="project_title1">项目标题 1</h3>
+                            <p data-i18n="project_desc1">这是一个很棒的项目描述，展示了项目的核心功能和特点。</p>
                             <div class="project-links">
-                                <a href="#" class="project-link">查看演示</a>
-                                <a href="#" class="project-link">查看代码</a>
+                                <a href="#" class="project-link" data-i18n="project_demo">查看演示</a>
+                                <a href="#" class="project-link" data-i18n="project_code">查看代码</a>
                             </div>
                         </div>
                     </div>
                     <div class="project-card">
-                        <div class="project-image">
+                        <div class="project-image scroll-animate">
                         <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=600&fit=crop" alt="项目2">
                     </div>
-                        <div class="project-info">
-                            <h3>项目标题 2</h3>
-                            <p>另一个令人兴奋的项目，展示了不同的技术和创意。</p>
+                        <div class="project-info scroll-animate">
+                            <h3 data-i18n="project_title2">项目标题 2</h3>
+                            <p data-i18n="project_desc2">另一个令人兴奋的项目，展示了不同的技术和创意。</p>
                             <div class="project-links">
-                                <a href="#" class="project-link">查看演示</a>
-                                <a href="#" class="project-link">查看代码</a>
+                                <a href="#" class="project-link" data-i18n="project_demo">查看演示</a>
+                                <a href="#" class="project-link" data-i18n="project_code">查看代码</a>
                             </div>
                         </div>
                     </div>
                     <div class="project-card">
-                        <div class="project-image">
+                        <div class="project-image scroll-animate">
                         <img src="https://images.unsplash.com/photo-1517180102446-f3ece451e9d8?w=800&h=600&fit=crop" alt="项目3">
                     </div>
-                        <div class="project-info">
-                            <h3>项目标题 3</h3>
-                            <p>使用最新技术栈开发的创新项目解决方案。</p>
+                        <div class="project-info scroll-animate">
+                            <h3 data-i18n="project_title3">项目标题 3</h3>
+                            <p data-i18n="project_desc3">使用最新技术栈开发的创新项目解决方案。</p>
                             <div class="project-links">
-                                <a href="#" class="project-link">查看演示</a>
-                                <a href="#" class="project-link">查看代码</a>
+                                <a href="#" class="project-link" data-i18n="project_demo">查看演示</a>
+                                <a href="#" class="project-link" data-i18n="project_code">查看代码</a>
                             </div>
                         </div>
                     </div>
@@ -175,22 +190,54 @@
 
         <section id="contact" class="contact">
             <div class="container">
-                <h2>联系我</h2>
+                <h2 data-i18n="contact_title">联系我</h2>
                 <div class="contact-content">
                     <div class="contact-info">
-                        <p>如果您对我的工作感兴趣，或者想要合作，请随时联系我！</p>
-                        <div class="contact-details">
-                            <p>📧 email@example.com</p>
-                            <p>📱 +86 123 4567 8900</p>
-                            <p>📍 中国，北京</p>
+                        <h3 data-i18n="contact_subtitle">让我们一起合作</h3>
+                        <p data-i18n="contact_description">如果您对我的工作感兴趣，或者想要讨论技术话题、合作项目，请随时联系我！我热衷于分享知识和经验。</p>
+                        
+                        <div class="social-contact">
+                            <h4 data-i18n="contact_quick">快速联系</h4>
+                            <div class="social-links-vertical">
+                                <a href="https://kirineko.github.io" target="_blank" class="social-contact-link">
+                                    <span class="social-icon">🌐</span>
+                                    <span class="social-text" data-i18n="contact_website">个人网页</span>
+                                    <span class="social-url">kirineko.github.io</span>
+                                </a>
+                                <a href="mailto:1197146830@qq.com" class="social-contact-link">
+                                    <span class="social-icon">📧</span>
+                                    <span class="social-text" data-i18n="contact_email">邮箱</span>
+                                    <span class="social-url">1197146830@qq.com</span>
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="contact-form-container scroll-animate-right">
+                            <h4 data-i18n="contact_form_title">发送消息</h4>
+                            <form class="contact-form" onsubmit="handleSubmit(event)">
+                                <div class="form-group">
+                                    <input type="text" name="name" placeholder="您的姓名" data-i18n-placeholder="contact_placeholder_name" required>
+                                    <label for="name" data-i18n="contact_name">姓名</label>
+                                </div>
+                                <div class="form-group">
+                                    <input type="email" name="email" placeholder="您的邮箱" data-i18n-placeholder="contact_placeholder_email" required>
+                                    <label for="email" data-i18n="contact_email_field">邮箱</label>
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" name="subject" placeholder="消息主题" data-i18n-placeholder="contact_placeholder_subject">
+                                    <label for="subject" data-i18n="contact_subject">主题</label>
+                                </div>
+                                <div class="form-group">
+                                    <textarea name="message" placeholder="您的留言" rows="5" data-i18n-placeholder="contact_placeholder_message" required></textarea>
+                                    <label for="message" data-i18n="contact_message">留言</label>
+                                </div>
+                                <button type="submit" class="submit-button">
+                                    <span class="button-text" data-i18n="contact_submit">发送消息</span>
+                                    <span class="button-icon">→</span>
+                                </button>
+                            </form>
                         </div>
                     </div>
-                    <form class="contact-form" onsubmit="handleSubmit(event)">
-                        <input type="text" name="name" placeholder="您的姓名" required>
-                        <input type="email" name="email" placeholder="您的邮箱" required>
-                        <textarea name="message" placeholder="您的消息" rows="5" required></textarea>
-                        <button type="submit" class="submit-button">发送消息</button>
-                    </form>
                 </div>
             </div>
         </section>
@@ -198,7 +245,7 @@
 
     <footer>
         <div class="container">
-            <p>&copy; 2024 我的作品集. 保留所有权利.</p>
+            <p data-i18n="footer_copyright">&copy; 2024 我的作品集. 保留所有权利.</p>
             <div class="social-links">
                 <a href="#" class="social-link">GitHub</a>
                 <a href="#" class="social-link">LinkedIn</a>

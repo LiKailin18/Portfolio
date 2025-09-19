@@ -83,12 +83,10 @@ function setupNavbarScrollEffect() {
     window.addEventListener('scroll', function() {
         const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
         
-        if (scrollTop > 100) {
-            navbar.style.backgroundColor = 'rgba(44, 62, 80, 0.95)';
-            navbar.style.backdropFilter = 'blur(10px)';
+        if (scrollTop > 50) {
+            navbar.classList.add('scrolled');
         } else {
-            navbar.style.backgroundColor = '#2c3e50';
-            navbar.style.backdropFilter = 'none';
+            navbar.classList.remove('scrolled');
         }
         
         // 隐藏/显示导航栏
@@ -356,3 +354,192 @@ document.addEventListener('visibilitychange', function() {
         console.log('页面已显示');
     }
 });
+
+// 初始化滚动动画
+function initScrollAnimations() {
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+            }
+        });
+    }, observerOptions);
+
+    // 观察所有需要动画的元素
+    const animatedElements = document.querySelectorAll('.scroll-animate, .scroll-animate-left, .scroll-animate-right');
+    animatedElements.forEach(el => observer.observe(el));
+}
+
+// 初始化滚动动画
+initScrollAnimations();
+
+// 粒子背景效果
+function createParticles() {
+    const particlesContainer = document.getElementById('particles');
+    const particleCount = 50;
+
+    for (let i = 0; i < particleCount; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'particle';
+        
+        // 随机位置
+        particle.style.left = Math.random() * 100 + '%';
+        
+        // 随机动画延迟
+        particle.style.animationDelay = Math.random() * 20 + 's';
+        
+        // 随机大小
+        const size = Math.random() * 3 + 2;
+        particle.style.width = size + 'px';
+        particle.style.height = size + 'px';
+        
+        particlesContainer.appendChild(particle);
+    }
+}
+
+// 初始化粒子背景
+createParticles();
+
+// 鼠标跟随效果
+function setupMouseFollowEffect() {
+    const cursor = document.createElement('div');
+    cursor.className = 'mouse-cursor';
+    document.body.appendChild(cursor);
+    
+    let mouseX = 0;
+    let mouseY = 0;
+    let cursorX = 0;
+    let cursorY = 0;
+    
+    document.addEventListener('mousemove', (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+    });
+    
+    function animateCursor() {
+        cursorX += (mouseX - cursorX) * 0.1;
+        cursorY += (mouseY - cursorY) * 0.1;
+        
+        cursor.style.left = cursorX + 'px';
+        cursor.style.top = cursorY + 'px';
+        
+        requestAnimationFrame(animateCursor);
+    }
+    
+    animateCursor();
+}
+
+setupMouseFollowEffect();
+
+    // 数字计数动画
+    function animateCounter(element, target, duration = 2000) {
+        let start = 0;
+        const increment = target / (duration / 16);
+        const timer = setInterval(() => {
+            start += increment;
+            if (start >= target) {
+                element.textContent = target + (element.textContent.includes('+') ? '+' : '');
+                clearInterval(timer);
+            } else {
+                element.textContent = Math.floor(start) + (element.textContent.includes('+') ? '+' : '');
+            }
+        }, 16);
+    }
+
+    // 初始化数字计数动画
+    function initCounters() {
+        const counters = document.querySelectorAll('.stat-number');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const element = entry.target;
+                    const text = element.textContent;
+                    const number = parseInt(text);
+                    if (!isNaN(number)) {
+                        element.textContent = '0' + (text.includes('+') ? '+' : '');
+                        animateCounter(element, number);
+                    }
+                    observer.unobserve(element);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        counters.forEach(counter => observer.observe(counter));
+    }
+
+    // 初始化计数器
+initCounters();
+
+// 标题动画
+function animateTitles() {
+    const titles = document.querySelectorAll('.section-title');
+    
+    titles.forEach(title => {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animated');
+                }
+            });
+        }, { threshold: 0.5 });
+        
+        observer.observe(title);
+    });
+}
+
+animateTitles();
+
+// 滚动指示器点击功能
+document.addEventListener('DOMContentLoaded', function() {
+    const scrollIndicator = document.querySelector('.scroll-indicator');
+    if (scrollIndicator) {
+        scrollIndicator.addEventListener('click', function() {
+            document.querySelector('#about').scrollIntoView({ 
+                behavior: 'smooth',
+                block: 'start'
+            });
+        });
+    }
+});
+
+// 导航栏激活状态
+function updateActiveNavLink() {
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('.nav-link');
+    
+    let currentSection = '';
+    
+    sections.forEach(section => {
+        const sectionTop = section.offsetTop;
+        const sectionHeight = section.clientHeight;
+        if (window.scrollY >= sectionTop - 100) {
+            currentSection = section.getAttribute('id');
+        }
+    });
+    
+    navLinks.forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('href') === `#${currentSection}`) {
+            link.classList.add('active');
+        }
+    });
+}
+
+window.addEventListener('scroll', updateActiveNavLink);
+document.addEventListener('DOMContentLoaded', updateActiveNavLink);
+
+    // 页面加载完成后隐藏加载动画
+    window.addEventListener('load', () => {
+        const loader = document.getElementById('loader');
+        setTimeout(() => {
+            loader.classList.add('hidden');
+            setTimeout(() => {
+                loader.style.display = 'none';
+            }, 500);
+        }, 1000);
+    });
